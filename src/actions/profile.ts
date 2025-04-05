@@ -45,7 +45,8 @@ export async function handleProfileSubmit(
         }
 
         return { success: true, message: 'Profile updated successfully' }
-    } catch (error) {
+    } catch (err) {
+        console.log(err)
         return {
             success: false,
             message: 'An error occurred while connecting to the server',
