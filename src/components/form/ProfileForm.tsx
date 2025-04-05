@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import Image from 'next/image'
+
 import Input from '../input/Input'
 import { FormState, Errors } from '@/types/types'
 import { toast } from 'react-toastify'
@@ -29,7 +29,7 @@ function ProfileForm() {
     const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
 
-        // Example: simple validation logic
+
         if (value.trim() === '') {
             setErrors((prevErrors) => ({
                 ...prevErrors,
@@ -133,27 +133,7 @@ function ProfileForm() {
                             <p className="mt-3 text-sm/6 text-gray-600">Write a few sentences about yourself.</p>
                         </div>
 
-                        <div className="col-span-full">
-                            <label htmlFor="cover-photo" className="block text-sm/6 font-medium text-gray-900">
-                                Profile Picture
-                            </label>
-                            <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                                <div className="text-center">
-                                    <Image src="/imageIcon.png" width={100} height={100} alt="profile" className="ml-10" />
-                                    <div className="mt-4 flex text-sm/6 text-gray-600">
-                                        <label
-                                            htmlFor="file-upload"
-                                            className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-indigo-500"
-                                        >
-                                            <span>Upload a file</span>
-                                            <input id="file-upload" name="file-upload" type="file" className="sr-only" onChange={handleChange} onBlur={handleBlur} />
-                                        </label>
-                                        <p className="pl-1">or drag and drop</p>
-                                    </div>
-                                    <p className="text-xs/5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>

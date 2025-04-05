@@ -2,10 +2,10 @@ import { ChangeEventHandler, FocusEventHandler } from "react";
 
 export interface UserProfile {
     id: string;
-    name: string;
+    username: string;
     email: string;
     bio?: string;
-    picture?: string
+
 }
 
 

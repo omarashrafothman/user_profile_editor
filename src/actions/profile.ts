@@ -4,12 +4,12 @@
 import { profileSchema } from '../schemas/profileSchema'
 import { z } from 'zod'
 
-
 type ProfileFormInput = z.infer<typeof profileSchema>
 
 type FormState = {
     errors?: Partial<Record<keyof ProfileFormInput, string[]>>
     success?: boolean
+    message?: string
 }
 
 export async function handleProfileSubmit(
@@ -30,8 +30,25 @@ export async function handleProfileSubmit(
         }
     }
 
-    // Submit data to DB or API...
-    console.log(data)
+    try {
+        const res = await fetch('http://localhost:5000/profiles/1', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        })
 
-    return { success: true }
+        if (!res.ok) {
+            return {
+                success: false,
+                message: `Failed to update profile: ${res.statusText}`,
+            }
+        }
+
+        return { success: true, message: 'Profile updated successfully' }
+    } catch (error) {
+        return {
+            success: false,
+            message: 'An error occurred while connecting to the server',
+        }
+    }
 }

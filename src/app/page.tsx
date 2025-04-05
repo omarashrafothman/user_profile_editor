@@ -1,8 +1,24 @@
+"use client"
 
 import Link from "next/link";
 import Image from "next/image";
 import ProfileForm from "@/components/form/ProfileForm";
+import { useState, useEffect } from "react";
+import { UserProfile } from "@/types/types";
 export default function Home() {
+
+  const [profile, setProfile] = useState<UserProfile>();
+
+  useEffect(() => {
+    fetch('http://localhost:5000/profiles/1')
+      .then(response => response.json())
+      .then(data => setProfile(data));
+  }, []);
+
+
+
+
+  if (!profile) return <div className="flex items-center justify-center mt-7">Loading...</div>;
   return (
     <div className="">
 
@@ -11,39 +27,35 @@ export default function Home() {
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8 mb-6">
           <div className="p-4  rounded-3xl bg-white lg:col-span-2">
             <div className="flex justify-between">
-              <div className="flex gap-5 md:gap-10 items-center" >
+              <div className="flex gap-5 md:gap-10 items-center flex-wrap"  >
 
-                <div className="profileImageContainer w-25 h-25 md:w-40 md:h-40 rounded-full">
+                <div className="profileImageContainer w-20 h-20 md:w-40 md:h-40 rounded-full">
 
                   <Image src={"/user.jpg"} width={150} height={150} alt="userImage" className="object-cover rounded-full w-full h-full" />
 
                 </div>
 
                 <div className="userData">
-                  <h2 className="font-semibold text-2xl mb-3">omar</h2>
+                  <h2 className="font-semibold text-2xl mb-3">{profile.username}</h2>
                   <ul className="">
 
                     <li className="mb-2">
-                      <p className="text-gray-400">Email:<span className=" text-black ml-2">omar@gmail.com</span></p>
+                      <p className="text-gray-400">Email:<span className=" text-black ml-2">{profile.email}</span></p>
+                    </li>
+                    <li className="mb-2">
+                      <p className="text-gray-400">Bio:<span className=" text-black ml-2">{profile.bio}</span></p>
                     </li>
                     <li className="mb-2">
                       <p className="text-gray-400">Address:<span className="text-black  ml-2">Ramallah</span></p>
                     </li>
-                    <li className="mb-2">
-                      <p className="text-gray-400">Phone:<span className="text-black  ml-2">701-696-6591</span></p>
-                    </li>
 
                   </ul>
-
-
-
-
 
                 </div>
 
 
               </div>
-              <div className="flex items-center justify-between flex-col gap-2.5">
+              <div className=" items-center justify-between flex-col gap-2.5 hidden md:flex">
                 <Link href={"https://www.linkedin.com/in/yahya-al-ayaseh-6181a8220/?miniProfileUrn=urn%3Ali%3Afsd_profile%3AACoAADeOr3QBcCTn8xW6nLnCMw8Dpg4Cw19tMlA"} className="w-10 h-10 md:w-12 md:h-12  bg-purple-500 text-white rounded-full flex items-center justify-center" target="_blank">
                   <Image src="/facebook.png" width={90} height={90} alt="icon" className="w-6 h-6" />
                 </Link>
