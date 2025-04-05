@@ -31,9 +31,7 @@ export interface FormState {
 
 }
 
-export interface Errors {
-    username?: string;
-    email?: string;
-    bio?: string;
-    picture?: string
-}
+
+export type Errors = {
+    [key: string]: string | undefined;
+};
